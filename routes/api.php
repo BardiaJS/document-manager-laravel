@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BossController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -18,3 +21,15 @@ Route::post('/documents/create' , [DocumentController::class , 'create_document'
 Route::get('/documents/{document}' , [DocumentController::class, 'get_document'])->middleware('auth:sanctum');
 
 Route::delete('/documents/{document}' , [DocumentController::class, 'delete_document'])->middleware('auth:sanctum');
+
+Route::post('/documents/{document}/accept-admin' , [AdminController::class , 'accept_admin'])->middleware('auth:sanctum');
+Route::post('/documents/{document}/reject-admin' , [AdminController::class, 'reject_admin'])->middleware('auth:sanctum');
+Route::get('/documents/{document}' , [AdminController::class, 'get_document'])->middleware('auth:sanctum');
+
+Route::post('/documents/{document}/accept-manager' , [ManagerController::class , 'accept_manager'])->middleware('auth:sanctum');
+Route::post('/documents/{document}/reject-manager' , [ManagerController::class, 'reject_manager'])->middleware('auth:sanctum');
+Route::get('/documents/{document}' , [ManagerController::class, 'get_document'])->middleware('auth:sanctum');
+
+Route::post('/documents/{document}/accept-boss' , [BossController::class , 'accept_boss'])->middleware('auth:sanctum');
+Route::post('/documents/{document}/reject-boss' , [BossController::class, 'reject_boss'])->middleware('auth:sanctum');
+Route::get('/documents/{document}' , [BossController::class, 'get_document'])->middleware('auth:sanctum');

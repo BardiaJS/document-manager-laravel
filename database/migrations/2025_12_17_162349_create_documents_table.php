@@ -21,6 +21,7 @@ return new class extends Migration
             $table->boolean('is_document_admin_signed')->default(false);
             $table->boolean('is_document_manager_signed')->default(false);
             $table->boolean('is_boss_signed')->default(false);
+            $table->string('response')->nullable();
             $table->timestamps();
         });
     }

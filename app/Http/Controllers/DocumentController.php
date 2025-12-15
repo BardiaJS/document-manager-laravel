@@ -32,6 +32,4 @@ class DocumentController extends Controller
             ] , 403);
         }
     }
-
-    
 }
