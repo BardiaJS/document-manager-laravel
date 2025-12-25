@@ -15,16 +15,16 @@ class DocumentPolicy
      */
     public function viewDocumentAdmin(User $user , Document $document): bool
     {
-        return (($document->user_id === $user->id) || (!($document->is_document_admin_signed) and ($user->is_document_admin == 1))) ;
+        return (!($document->is_document_admin_signed) and ($user->is_document_admin == 1));
     }
 
     public function viewDocumentManager(User $user , Document $document): bool
     {
-        return (($document->user_id === $user->id) || ($document->is_document_admin_signed and $user->is_document_manager)) ;
+        return ($document->is_document_admin_signed and $user->is_document_manager);
     }
     public function viewBoss(User $user , Document $document): bool
     {
-        return (($document->user_id === $user->id) || ($document->is_document_manager_signed and $user->is_boss)) ;
+        return  ($document->is_document_manager_signed and $user->is_boss) ;
     }
     /**
      * Determine whether the user can view the model.
@@ -47,7 +47,7 @@ class DocumentPolicy
         }
 
         // 4. رئیس می‌تواند اسناد امضا شده توسط مدیر را ببیند
-        if ($this->viewBoss($user, $document)) {
+        if ($user->is_boss) {
             return true;
         }
 

@@ -1,12 +1,16 @@
 <?php
 
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\BossController;
-use App\Http\Controllers\DocumentController;
-use App\Http\Controllers\ManagerController;
-use App\Http\Controllers\UserController;
+use App\Models\User;
+use App\Events\MessageSent;
+use App\Models\Conversation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BossController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ManagerController;
+use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\ConversationController;
 
 Route::post('/users/register' , [UserController::class , 'register']);
 
@@ -33,3 +37,7 @@ Route::get('/documents/{document}' , [ManagerController::class, 'get_document'])
 Route::post('/documents/{document}/accept-boss' , [BossController::class , 'accept_boss'])->middleware('auth:sanctum');
 Route::post('/documents/{document}/reject-boss' , [BossController::class, 'reject_boss'])->middleware('auth:sanctum');
 Route::get('/documents/{document}' , [BossController::class, 'get_document'])->middleware('auth:sanctum');
+
+
+Route::get('/messages/{user}', [ConversationController::class, 'receive_message'])->middleware(['auth:sanctum']);
+Route::post('/messages/{user}', [ConversationController::class, 'send_message'])->middleware('auth:sanctum');

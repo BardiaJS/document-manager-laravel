@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\DocumentResource;
-use App\Http\Resources\UserResource;
 use App\Models\Document;
 use Illuminate\Http\Request;
+use App\Http\Resources\UserResource;
+use App\Http\Resources\DocumentResource;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class BossController extends Controller
 {
+    use AuthorizesRequests, ValidatesRequests;
     public function accept_boss(Document $document){
         $this->authorize('viewBoss', $document);
         $document->is_boss_signed= true;

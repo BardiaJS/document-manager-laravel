@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Document;
 
 use Illuminate\Http\Request;
+use App\Http\Resources\UserResource;
 use App\Http\Resources\DocumentResource;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests; // این را اضافه کنید
@@ -28,5 +29,9 @@ class AdminController extends Controller
         $document->response = $response;
         $document->save();
         return new DocumentResource($document);
+    }
+    public function get_document(Document $document){
+        $this->authorize('viewDocumentAdmin', $document);
+        return new UserResource($document);
     }
 }
