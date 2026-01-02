@@ -12,11 +12,11 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests; // این را اضافه کنید
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests; 
 
 class UserController extends Controller
 {
-    use HandlesAuthorization;
+    use AuthorizesRequests;
     public function register(CreateUserRequest $createUserRequest){
         $validated_data = $createUserRequest->validated();
         if(Carbon::parse($validated_data['date_of_birth'])->age < 18){

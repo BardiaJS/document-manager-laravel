@@ -20,7 +20,7 @@ class ConversationController extends Controller
            broadcast(new MessageSent($message))->toOthers();
             
             return $message;
-        }else if(!(Auth::user()->is_admin) and ($user->is_admin == 1)){
+        }else if(!(Auth::user()->is_support) and ($user->is_support == 1)){
             $message = Conversation::create([
                 'sender_id' => Auth::user()->id ,
                 'receiver_id' => $user->id,
@@ -30,7 +30,7 @@ class ConversationController extends Controller
  
            return $message;
         }else{
-            abort(4032 , 'no access!');
+            abort(403 , 'no access!');
         }
 
     }
